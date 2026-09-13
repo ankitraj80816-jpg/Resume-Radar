@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resume Radar — Resume vs JD Match Console</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow no-print">resume ↔ job description console</div>
+    <h1>Resume Radar</h1>
+    <p class="tagline no-print">Upload a resume, pick a role or paste a real JD, and see exactly what matches, what's missing, and what to prepare — all in your browser, nothing installed.</p>
+  </header>
+
+  <div class="panel no-print" id="historyPanel" style="display:none;">
+    <h2 style="margin-bottom:10px;">📈 Your progress</h2>
+    <div id="historyChart"></div>
+    <div id="historyList"></div>
+    <button class="link-btn" id="clearHistoryBtn">Clear history</button>
+  </div>
+
+  <div class="panel no-print">
+    <h2><span class="step-num">01</span>Resume</h2>
+    <div class="dropzone" id="dropzone">Click to choose a PDF or DOCX resume</div>
+    <input type="file" id="fileInput" accept=".pdf,.docx" hidden />
+    <p class="hint" id="fileStatus">No file selected yet.</p>
+
+    <h2><span class="step-num">02</span>Target role</h2>
+    <label>Pick a common role (used if no JD is pasted below)</label>
+    <select id="roleSelect"></select>
+
+    <h2><span class="step-num">03</span>Job description <span style="color:var(--muted); font-weight:400;">(optional — more accurate)</span></h2>
+    <textarea id="jdInput" placeholder="Paste the actual job description here for company-specific matching..."></textarea>
+
+    <h2><span class="step-num">04</span>LinkedIn search filters</h2>
+    <div class="grid3">
+      <div>
+        <label>Location</label>
+        <input type="text" id="locInput" placeholder="e.g. Bangalore, Remote" />
+      </div>
+      <div>
+        <label>Work type</label>
+        <select id="workType">
+          <option value="">Any</option>
+          <option value="remote">Remote</option>
+          <option value="hybrid">Hybrid</option>
+          <option value="onsite">On-site</option>
+        </select>
+      </div>
+      <div>
+        <label>Experience level</label>
+        <select id="expLevel">
+          <option value="">Any</option>
+          <option value="internship">Internship</option>
+          <option value="entry">Entry level</option>
+          <option value="associate">Associate</option>
+          <option value="mid-senior">Mid-Senior</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="run" id="runBtn" disabled>Analyze Resume</button>
+  </div>
+
+  <div id="errorBox"></div>
+
+  <div id="reportActions" class="report-actions no-print" style="display:none;">
+    <button class="action-btn" id="downloadBtn">📄 Download Report (PDF)</button>
+    <button class="action-btn secondary" id="copyBtn">📋 Copy Summary</button>
+  </div>
+
+  <div id="printHeader" class="print-only">
+    <h1>Resume Radar — Analysis Report</h1>
+    <p id="printDate"></p>
+  </div>
+
+  <div id="results"></div>
+
+  <p class="foot-note no-print">Parsing happens entirely in your browser — your resume is never uploaded anywhere.</p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
